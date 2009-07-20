@@ -10,7 +10,7 @@ black = 0, 0, 0
 screen = pygame.display.set_mode(size)
 
 from bullet import Bullet
-bullet = Bullet()
+bullet = Bullet(screen)
 
 pygame.display.set_caption("Alpha Beta Gamma")
 pygame.key.set_repeat(1, 1)
@@ -22,7 +22,8 @@ pshiprect.move_ip(width/2, height - 25)
 
 while 1:
     for event in pygame.event.get():
-        if event.type == pygame.QUIT: sys.exit()
+        if event.type == pygame.QUIT: 
+            sys.exit()
             
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RIGHT and pshiprect.right < width:

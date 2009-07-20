@@ -10,7 +10,7 @@ black = 0, 0, 0
 screen = pygame.display.set_mode(size)
 
 from bullet import Bullet
-bullet = Bullet(screen)
+bullet = Bullet()
 
 pygame.display.set_caption("Alpha Beta Gamma")
 pygame.key.set_repeat(1, 1)
@@ -31,7 +31,7 @@ while 1:
     if key[pygame.K_LEFT] and pshiprect.left > 0:
         pshiprect = pshiprect.move(move_left)
     if key[pygame.K_SPACE]:
-        bullet.fire()
+        bullet.fire(pshiprect, screen)
     
     screen.fill(black)
     

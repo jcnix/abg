@@ -21,17 +21,17 @@ pshiprect = pship.get_rect()
 pshiprect.move_ip(width/2, height - 25)
 
 while 1:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT: 
-            sys.exit()
-            
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RIGHT and pshiprect.right < width:
-                pshiprect = pshiprect.move(move_right)
-            if event.key == pygame.K_LEFT and pshiprect.left > 0:
-                pshiprect = pshiprect.move(move_left)
-            if event.key == pygame.K_SPACE:
-                bullet.fire()
+    pygame.event.pump()
+    key = pygame.key.get_pressed()
+    if key[pygame.K_ESCAPE]: 
+        sys.exit()
+
+    if key[pygame.K_RIGHT] and pshiprect.right < width:
+        pshiprect = pshiprect.move(move_right)
+    if key[pygame.K_LEFT] and pshiprect.left > 0:
+        pshiprect = pshiprect.move(move_left)
+    if key[pygame.K_SPACE]:
+        bullet.fire()
     
     screen.fill(black)
     

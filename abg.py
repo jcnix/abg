@@ -13,7 +13,7 @@ from bullet import Bullet
 bullet = Bullet()
 
 pygame.display.set_caption("Alpha Beta Gamma")
-pygame.key.set_repeat(1, 1)
+pygame.key.set_repeat()
 
 pship = pygame.image.load("res/player_ship.png").convert()
 pshiprect = pship.get_rect()
@@ -23,6 +23,7 @@ pshiprect.move_ip(width/2, height - 25)
 while 1:
     pygame.event.pump()
     key = pygame.key.get_pressed()
+    
     if key[pygame.K_ESCAPE]: 
         sys.exit()
 
@@ -30,11 +31,16 @@ while 1:
         pshiprect = pshiprect.move(move_right)
     if key[pygame.K_LEFT] and pshiprect.left > 0:
         pshiprect = pshiprect.move(move_left)
-    if key[pygame.K_SPACE]:
-        bullet.fire(pshiprect, screen)
+        
+    for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                print "fire"
+                bullet.fire(pshiprect.midtop)
     
     screen.fill(black)
     
     screen.blit(pship, pshiprect)
+    bullet.move(screen)
     
     pygame.display.flip()

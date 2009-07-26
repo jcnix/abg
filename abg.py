@@ -35,7 +35,6 @@ while 1:
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
-                print "fire"
                 bullet.fire(pshiprect.midtop)
     
     screen.fill(black)

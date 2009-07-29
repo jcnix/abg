@@ -12,6 +12,9 @@ screen = pygame.display.set_mode(size)
 from bullet import Bullet
 bullet = Bullet()
 
+from enemy import Enemy
+enemy = Enemy();
+
 pygame.display.set_caption("Alpha Beta Gamma")
 pygame.key.set_repeat()
 
@@ -40,6 +43,8 @@ while 1:
     screen.fill(black)
     
     screen.blit(pship, pshiprect)
-    bullet.move(screen)
+    enemy.init(screen)
+    enemies = enemy.getEnemies()
+    bullet.move(screen, enemies)
     
     pygame.display.flip()

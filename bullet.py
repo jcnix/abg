@@ -1,5 +1,5 @@
 # -*- coding: iso-8859-1 -*-
-import sys, pygame
+import sys, pygame, enemy
 
 class Bullet:
     bullet = pygame.image.load("res/bullet.png").convert()
@@ -12,7 +12,7 @@ class Bullet:
         self.bulletrect.move_ip(pshiprect)
         self.bulletrects.append(self.bulletrect)
                 
-    def move(self, screen):
+    def move(self, screen, enemies):
         to_delete = []
         
         for i in range(len(self.bulletrects)):
@@ -22,7 +22,11 @@ class Bullet:
             #If bullet goes off the top of the screen
             if self.bulletrects[i].top < 0:
                 to_delete.append(self.bulletrects[i])
-        
+            
+            collision = self.bulletrects[i].collidelist(enemies)
+            if collision != -1:
+                to_delete.append(self.bulletrects[i])
+                
         for x in range(len(to_delete)):
             del self.bulletrects[x]
                 

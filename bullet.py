@@ -14,7 +14,6 @@ class Bullet:
     def move(self, screen, diff_time, enemies):
         bullet_speed = [0, -3]
         bullet_speed = [(diff_time+1)*x for x in bullet_speed]
-        print bullet_speed
         
         to_delete = []
         
@@ -24,12 +23,12 @@ class Bullet:
             
             #If bullet goes off the top of the screen
             if self.bulletrects[i].top < 0:
-                to_delete.append(self.bulletrects[i])
+                to_delete.append(i)
             
             collision = self.bulletrects[i].collidelist(enemies)
             if collision != -1:
-                to_delete.append(self.bulletrects[i])
+                to_delete.append(i)
                 
-        for x in range(len(to_delete)):
+        for x in to_delete:
             del self.bulletrects[x]
                 

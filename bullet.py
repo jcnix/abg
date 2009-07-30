@@ -4,7 +4,6 @@ import sys, pygame, enemy
 class Bullet:
     bullet = pygame.image.load("res/bullet.png").convert()
     bulletrect = bullet.get_rect()
-    bullet_speed = [0, -3]
     bulletrects = []
 
     def fire(self, pshiprect):       
@@ -12,11 +11,15 @@ class Bullet:
         self.bulletrect.move_ip(pshiprect)
         self.bulletrects.append(self.bulletrect)
                 
-    def move(self, screen, enemies):
+    def move(self, screen, diff_time, enemies):
+        bullet_speed = [0, -3]
+        bullet_speed = [(diff_time+1)*x for x in bullet_speed]
+        print bullet_speed
+        
         to_delete = []
         
         for i in range(len(self.bulletrects)):
-            self.bulletrects[i] = self.bulletrects[i].move(self.bullet_speed)
+            self.bulletrects[i] = self.bulletrects[i].move(bullet_speed)
             screen.blit(self.bullet, self.bulletrects[i])
             
             #If bullet goes off the top of the screen

@@ -23,6 +23,7 @@ pshiprect = pship.get_rect()
 pshiprect.move_ip(width/2, height - 25)
 current_time = time()
 end_time = current_time
+diff_time = 1
 
 while 1:
     move_right = [1.5, 0]
@@ -48,7 +49,7 @@ while 1:
     screen.blit(pship, pshiprect)
     enemy.init(screen)
     enemies = enemy.getEnemies()
-    bullet.move(screen, enemies)
+    bullet.move(screen, diff_time, enemies)
     
     pygame.display.flip()
 

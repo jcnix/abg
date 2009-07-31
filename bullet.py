@@ -1,5 +1,5 @@
 # -*- coding: iso-8859-1 -*-
-import sys, pygame, enemy
+import sys, pygame, enemy, frametime
 
 class Bullet:
     bullet = pygame.image.load("res/bullet.png").convert()
@@ -11,9 +11,9 @@ class Bullet:
         self.bulletrect.move_ip(pshiprect)
         self.bulletrects.append(self.bulletrect)
                 
-    def move(self, screen, diff_time, enemies):
+    def move(self, screen, enemies):
         bullet_speed = [0, -3]
-        bullet_speed = [(diff_time+1)*x for x in bullet_speed]
+        bullet_speed = frametime.modify_speed(bullet_speed)
         
         to_delete = []
         

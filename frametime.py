@@ -21,3 +21,9 @@ def end():
     
     return diff_time
     
+def get_diff_time():
+    return diff_time
+    
+def modify_speed(lspeed):
+    return [diff_time*x for x in lspeed]
+    

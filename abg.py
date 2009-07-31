@@ -23,6 +23,9 @@ pshiprect.move_ip(width/2, height - 25)
 current_time = frametime.start()
 diff_time = 1
 
+move_right = [1.5, 0]
+move_left = [-1.5, 0]
+
 while 1:
     move_right = [1.5, 0]
     move_left = [-1.5, 0]
@@ -47,12 +50,12 @@ while 1:
     screen.blit(pship, pshiprect)
     enemy.init(screen)
     enemies = enemy.getEnemies()
-    bullet.move(screen, diff_time, enemies)
+    bullet.move(screen, enemies)
     
     pygame.display.flip()
 
     #find how long it took to render so we can adjust speeds
     diff_time = frametime.end()
     
-    move_right = [diff_time*x for x in move_right]
-    move_left = [diff_time*x for x in move_left]
+    move_right = frametime.modify_speed(move_right)
+    move_left = frametime.modify_speed(move_left)

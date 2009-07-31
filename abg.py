@@ -27,8 +27,6 @@ move_right = [1.5, 0]
 move_left = [-1.5, 0]
 
 while 1:
-    move_right = [1.5, 0]
-    move_left = [-1.5, 0]
     pygame.event.pump()
     key = pygame.key.get_pressed()
     
@@ -57,5 +55,7 @@ while 1:
     #find how long it took to render so we can adjust speeds
     diff_time = frametime.end()
     
+    move_right = [1.5, 0]
+    move_left = [-1.5, 0]
     move_right = frametime.modify_speed(move_right)
     move_left = frametime.modify_speed(move_left)

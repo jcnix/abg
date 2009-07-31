@@ -1,6 +1,5 @@
 # -*- coding: iso-8859-1 -*-
-import sys, pygame
-from time import time
+import sys, pygame, frametime
 
 pygame.init()
 
@@ -21,8 +20,7 @@ pship = pygame.image.load("res/player_ship.png").convert()
 pshiprect = pship.get_rect()
 
 pshiprect.move_ip(width/2, height - 25)
-current_time = time()
-end_time = current_time
+current_time = frametime.start()
 diff_time = 1
 
 while 1:
@@ -54,9 +52,7 @@ while 1:
     pygame.display.flip()
 
     #find how long it took to render so we can adjust speeds
-    end_time = time()
-    diff_time = end_time - current_time
-    current_time = end_time
+    diff_time = frametime.end()
     
     move_right = [diff_time*x for x in move_right]
     move_left = [diff_time*x for x in move_left]

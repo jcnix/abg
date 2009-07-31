@@ -12,7 +12,7 @@ class Bullet:
         self.bulletrects.append(self.bulletrect)
                 
     def move(self, screen, enemies):
-        bullet_speed = [0, -3]
+        bullet_speed = [0, -750]
         bullet_speed = frametime.modify_speed(bullet_speed)
         
         to_delete = []

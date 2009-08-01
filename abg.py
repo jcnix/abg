@@ -6,6 +6,7 @@ pygame.init()
 size = width, height = 800, 600
 black = 0, 0, 0
 
+
 screen = pygame.display.set_mode(size)
 
 from bullet import Bullet
@@ -20,13 +21,14 @@ pship = pygame.image.load("res/player_ship.png").convert()
 pshiprect = pship.get_rect()
 
 pshiprect.move_ip(width/2, height - 25)
-current_time = frametime.start()
-diff_time = 1
-
-move_right = [1.5, 0]
-move_left = [-1.5, 0]
+frametime.start()
 
 while 1:
+    move_right = [375, 0]
+    move_left = [-375, 0]
+    move_right = frametime.modify_speed(move_right)
+    move_left = frametime.modify_speed(move_left)
+    
     pygame.event.pump()
     key = pygame.key.get_pressed()
     
@@ -53,9 +55,5 @@ while 1:
     pygame.display.flip()
 
     #find how long it took to render so we can adjust speeds
-    diff_time = frametime.end()
+    frametime.end()
     
-    move_right = [375, 0]
-    move_left = [-375, 0]
-    move_right = frametime.modify_speed(move_right)
-    move_left = frametime.modify_speed(move_left)

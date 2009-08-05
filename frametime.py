@@ -29,7 +29,7 @@ def end():
     end_time = time()
     diff_time = end_time - start_time
     start_time = end_time
-    
+
     return diff_time
     
 def get_diff_time():
@@ -43,7 +43,7 @@ def can_create_enemy():
     spawn_time += diff_time
     
     #spawn time is 5 seconds, just a placeholder for now
-    if spawn_time >= 5:
+    if spawn_time >= 3:
         spawn_time = 0
         return True
     else:

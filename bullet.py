@@ -59,6 +59,6 @@ class Bullet:
     
     def remove(self, index):
         try:
-            del self.bulletrects[x]
+            del self.bulletrects[index]
         except IndexError:
             print "IndexError for bullet %d", index

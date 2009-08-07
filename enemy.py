@@ -56,8 +56,6 @@ class Enemy:
                     
             for x in to_delete:
                 self.remove(x)
-            
-            print len(self.enemies)
         
     def getEnemies(self):
         return self.enemies

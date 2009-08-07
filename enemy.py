@@ -41,12 +41,29 @@ class Enemy:
         if frametime.can_create_enemy():
             self.create()
             
+        move_speed = [0, 250]
+        move_speed = frametime.modify_speed(move_speed)
+        to_delete = []
+        
         if len(self.enemies) > 0:
             for i in range(len(self.enemies)):
+                self.enemies[i] = self.enemies[i].move(move_speed)
                 screen.blit(self.enemy, self.enemies[i])
+                
+                #If enemy goes off the bottom of the screen
+                if self.enemies[i].top > 800:
+                    to_delete.append(i)
+                    
+            for x in to_delete:
+                self.remove(x)
+            
+            print len(self.enemies)
         
     def getEnemies(self):
         return self.enemies
         
     def remove(self, index):
-        del self.enemies[index]
+        try:
+            del self.enemies[index]
+        except IndexError:
+            print "IndexError for enemy %d", index

@@ -38,7 +38,6 @@ class Bullet:
             bullet_speed = [0, -750]
             bullet_speed = frametime.modify_speed(bullet_speed)
             enemies = enemy.getEnemies()
-            
             to_delete = []
             
             for i in range(len(self.bulletrects)):
@@ -56,5 +55,10 @@ class Bullet:
                     enemy.remove(collision)
                     
             for x in to_delete:
-                del self.bulletrects[x]
-                
+                self.remove(x)
+    
+    def remove(self, index):
+        try:
+            del self.bulletrects[x]
+        except IndexError:
+            print "IndexError for bullet %d", index

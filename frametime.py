@@ -64,7 +64,7 @@ def can_create_enemy():
     spawn_time += diff_time
     
     #spawn time is 5 seconds, just a placeholder for now
-    if spawn_time >= 3:
+    if spawn_time >= .75:
         spawn_time = 0
         return True
     else:

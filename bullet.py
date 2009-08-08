@@ -61,7 +61,7 @@ class Bullet:
                 collision = self.bulletrects[i].collidelist(enemies)
                 if collision != -1:
                     to_delete.append(i)
-                    enemy.remove(collision)
+                    to_update.append(enemy.remove(collision))
             
             for x in to_delete:
                 self.remove(x)

@@ -77,12 +77,8 @@ while 1:
     
     screen.blit(pship, pshiprect)
     to_update.append(pshiprect)
-    l1 = bullet.move(enemy)
-    l2 = enemy.move()
-    
-    to_update += l1
-    to_update += l2
-    
+    to_update += bullet.move(enemy)
+    to_update += enemy.move()
     pygame.display.update(to_update)
 
     #find how long it took to render this frame so we can adjust speeds

@@ -74,7 +74,9 @@ class Enemy:
         
     def remove(self, index):
         try:
+            to_update = self.enemies[index]
             self.screen.blit(self.blackSurface, self.enemies[index])
             del self.enemies[index]
+            return to_update
         except IndexError:
             print "IndexError for enemy %d", index

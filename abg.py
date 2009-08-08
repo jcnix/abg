@@ -44,7 +44,6 @@ pshiprect = pship.get_rect()
 
 pshiprect.move_ip(width/2, height - 25)
 frametime.start()
-enemy.create()
 
 while 1:
     move_right = [375, 0]

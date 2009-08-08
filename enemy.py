@@ -49,7 +49,6 @@ class Enemy:
             
         move_speed = [0, 300]
         move_speed = frametime.modify_speed(move_speed)
-        print move_speed
         to_delete = []
         
         if len(self.enemies) > 0:

@@ -29,7 +29,8 @@
 # This module can also measure the time and figure
 # out if a new enemy can be spawned.
 
-from time import time
+import time
+#from time import time
 
 start_time = 1
 end_time = 0
@@ -38,7 +39,7 @@ spawn_time = 0
 
 def start():
     global start_time
-    start_time = time()
+    start_time = time.time()
     
     return start_time
     
@@ -47,9 +48,11 @@ def end():
     global end_time
     global diff_time
     
-    end_time = time()
+    end_time = time.time()
     diff_time = end_time - start_time
-    start_time = end_time
+    if diff_time < 0.004:
+        time.sleep(0.004 - diff_time)
+        diff_time = 0.004
 
     return diff_time
     
@@ -57,7 +60,7 @@ def get_diff_time():
     return diff_time
     
 def modify_speed(lspeed):
-    return [diff_time*x for x in lspeed]
+    return [(diff_time*2) * x for x in lspeed]
     
 def can_create_enemy():
     global spawn_time

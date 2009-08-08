@@ -44,14 +44,14 @@ class Enemy:
         self.enemyrect.move_ip(where_spawn, 0)
 
     def move(self):
+        to_update = []
         if frametime.can_create_enemy():
             self.create()
             
-        move_speed = [0, 300]
+        move_speed = [0, 200]
         move_speed = frametime.modify_speed(move_speed)
         to_delete = []
-        to_update = []
-        to_update.extend(self.enemies)
+        to_update += self.enemies
         
         if len(self.enemies) > 0:
             for i in range(len(self.enemies)):
@@ -66,8 +66,8 @@ class Enemy:
             for x in to_delete:
                 self.remove(x)
             
-            to_update.extend(self.enemies)
-            return to_update
+        to_update += self.enemies
+        return to_update
         
     def getEnemies(self):
         return self.enemies

@@ -46,13 +46,13 @@ blackSurface = pygame.Surface([pship.get_height(), pship.get_width()])
 blackSurface.fill([0,0,0])
 
 pshiprect.move_ip(width/2, height - 25)
-frametime.start()
 enemy.create()
 
 while 1:
+    frametime.start()
     to_update = []
-    move_right = [375, 0]
-    move_left = [-375, 0]
+    move_right = [325, 0]
+    move_left = [-325, 0]
     move_right = frametime.modify_speed(move_right)
     move_left = frametime.modify_speed(move_left)
     
@@ -80,10 +80,9 @@ while 1:
     l1 = bullet.move(enemy)
     l2 = enemy.move()
     
-    to_update.extend(l1)
-    to_update.extend(l2)
+    to_update += l1
+    to_update += l2
     
-    print to_update
     pygame.display.update(to_update)
 
     #find how long it took to render this frame so we can adjust speeds

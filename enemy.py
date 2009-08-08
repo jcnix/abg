@@ -64,4 +64,5 @@ class Enemy:
         try:
             del self.enemies[index]
         except IndexError:
-            print "IndexError for enemy %d", index
+            print("IndexError for enemy %d" % index)
+            

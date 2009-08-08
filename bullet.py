@@ -61,4 +61,4 @@ class Bullet:
         try:
             del self.bulletrects[index]
         except IndexError:
-            print "IndexError for bullet %d", index
+            print("IndexError for bullet %d" % index)

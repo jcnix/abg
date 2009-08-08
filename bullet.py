@@ -75,4 +75,4 @@ class Bullet:
             self.screen.blit(self.blackSurface, self.bulletrects[index])
             del self.bulletrects[index]
         except IndexError:
-            print "IndexError for bullet %d", index
+            print("IndexError for bullet %d" % index)

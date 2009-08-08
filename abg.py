@@ -46,7 +46,7 @@ blackSurface = pygame.Surface([pship.get_height(), pship.get_width()])
 blackSurface.fill([0,0,0])
 
 pshiprect.move_ip(width/2, height - 25)
-enemy.create()
+frametime.start()
 
 while 1:
     frametime.start()

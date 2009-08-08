@@ -37,7 +37,7 @@ class Enemy:
     
     def create(self):
         #range that the current player ship can shoot
-        where_spawn = random.randint(1, 800-50)
+        where_spawn = random.randint(1, 800-self.enemy.get_width())
         
         self.enemyrect = self.enemy.get_rect()
         self.enemies.append(self.enemyrect)
@@ -79,4 +79,5 @@ class Enemy:
             del self.enemies[index]
             return to_update
         except IndexError:
-            print "IndexError for enemy %d", index
+            print("IndexError for enemy %d" % index)
+            

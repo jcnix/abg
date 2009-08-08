@@ -50,6 +50,7 @@ frametime.start()
 enemy.create()
 
 while 1:
+    to_update = []
     move_right = [375, 0]
     move_left = [-375, 0]
     move_right = frametime.modify_speed(move_right)
@@ -61,6 +62,7 @@ while 1:
     if key[pygame.K_ESCAPE]:
         sys.exit()
 
+    to_update.append(pshiprect)
     screen.blit(blackSurface, pshiprect)
     if key[pygame.K_RIGHT] and pshiprect.right < width:
         pshiprect = pshiprect.move(move_right)
@@ -74,10 +76,15 @@ while 1:
                 bullet.fire(pshiprect.midtop)
     
     screen.blit(pship, pshiprect)
-    bullet.move(enemy)
-    enemy.move()
+    to_update.append(pshiprect)
+    l1 = bullet.move(enemy)
+    l2 = enemy.move()
     
-    pygame.display.flip()
+    to_update.extend(l1)
+    to_update.extend(l2)
+    
+    print to_update
+    pygame.display.update(to_update)
 
     #find how long it took to render this frame so we can adjust speeds
     frametime.end()

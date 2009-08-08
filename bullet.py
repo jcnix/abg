@@ -45,6 +45,8 @@ class Bullet:
             bullet_speed = frametime.modify_speed(bullet_speed)
             enemies = enemy.getEnemies()
             to_delete = []
+            to_update = []
+            to_update.extend(self.bulletrects)
             
             for i in range(len(self.bulletrects)):
                 self.screen.blit(self.blackSurface, self.bulletrects[i])
@@ -60,9 +62,13 @@ class Bullet:
                 if collision != -1:
                     to_delete.append(i)
                     enemy.remove(collision)
-                    
+            
             for x in to_delete:
                 self.remove(x)
+            
+            to_update.extend(self.bulletrects)
+                
+            return to_update
     
     def remove(self, index):
         try:

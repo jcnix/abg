@@ -50,6 +50,8 @@ class Enemy:
         move_speed = [0, 300]
         move_speed = frametime.modify_speed(move_speed)
         to_delete = []
+        to_update = []
+        to_update.extend(self.enemies)
         
         if len(self.enemies) > 0:
             for i in range(len(self.enemies)):
@@ -63,6 +65,9 @@ class Enemy:
                     
             for x in to_delete:
                 self.remove(x)
+            
+            to_update.extend(self.enemies)
+            return to_update
         
     def getEnemies(self):
         return self.enemies

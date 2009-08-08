@@ -60,7 +60,7 @@ def get_diff_time():
     return diff_time
     
 def modify_speed(lspeed):
-    return [(diff_time*2) * x for x in lspeed]
+    return [diff_time*x for x in lspeed]
     
 def can_create_enemy():
     global spawn_time

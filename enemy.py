@@ -48,7 +48,7 @@ class Enemy:
         if frametime.can_create_enemy():
             self.create()
             
-        move_speed = [0, 200]
+        move_speed = [0, 300]
         move_speed = frametime.modify_speed(move_speed)
         to_delete = []
         to_update += self.enemies

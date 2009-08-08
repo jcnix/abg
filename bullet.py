@@ -27,13 +27,19 @@ class Bullet:
     bullet = pygame.image.load("res/bullet.png").convert()
     bulletrect = bullet.get_rect()
     bulletrects = []
+    blackSurface = pygame.Surface([bullet.get_height(), bullet.get_width()])
+    blackSurface.fill([0,0,0])
+    screen = None
+
+    def set_screen(self, screen):
+        self.screen = screen
 
     def fire(self, pshiprect):       
         self.bulletrect = self.bullet.get_rect()
         self.bulletrect.move_ip(pshiprect)
         self.bulletrects.append(self.bulletrect)
                 
-    def move(self, screen, enemy):
+    def move(self, enemy):
         if len(self.bulletrects) > 0:
             bullet_speed = [0, -750]
             bullet_speed = frametime.modify_speed(bullet_speed)
@@ -41,8 +47,9 @@ class Bullet:
             to_delete = []
             
             for i in range(len(self.bulletrects)):
+                self.screen.blit(self.blackSurface, self.bulletrects[i])
                 self.bulletrects[i] = self.bulletrects[i].move(bullet_speed)
-                screen.blit(self.bullet, self.bulletrects[i])
+                self.screen.blit(self.bullet, self.bulletrects[i])
                 
                 #If bullet goes off the top of the screen
                 if self.bulletrects[i].top < 0:
@@ -59,6 +66,7 @@ class Bullet:
     
     def remove(self, index):
         try:
+            self.screen.blit(self.blackSurface, self.bulletrects[index])
             del self.bulletrects[index]
         except IndexError:
             print "IndexError for bullet %d", index

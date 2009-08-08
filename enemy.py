@@ -28,6 +28,12 @@ class Enemy:
     enemy = pygame.image.load("res/enemy.png").convert()
     enemyrect = enemy.get_rect()
     enemies = []
+    blackSurface = pygame.Surface([enemy.get_height(), enemy.get_width()])
+    blackSurface.fill([0,0,0])
+    screen = None
+    
+    def set_screen(self, screen):
+        self.screen = screen
     
     def create(self):
         #range that the current player ship can shoot
@@ -37,18 +43,20 @@ class Enemy:
         self.enemies.append(self.enemyrect)
         self.enemyrect.move_ip(where_spawn, 0)
 
-    def move(self, screen):
+    def move(self):
         if frametime.can_create_enemy():
             self.create()
             
-        move_speed = [0, 250]
+        move_speed = [0, 300]
         move_speed = frametime.modify_speed(move_speed)
+        print move_speed
         to_delete = []
         
         if len(self.enemies) > 0:
             for i in range(len(self.enemies)):
+                self.screen.blit(self.blackSurface, self.enemies[i])
                 self.enemies[i] = self.enemies[i].move(move_speed)
-                screen.blit(self.enemy, self.enemies[i])
+                self.screen.blit(self.enemy, self.enemies[i])
                 
                 #If enemy goes off the bottom of the screen
                 if self.enemies[i].top > 800:
@@ -62,6 +70,7 @@ class Enemy:
         
     def remove(self, index):
         try:
+            self.screen.blit(self.blackSurface, self.enemies[index])
             del self.enemies[index]
         except IndexError:
             print "IndexError for enemy %d", index

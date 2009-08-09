@@ -42,7 +42,7 @@ pygame.key.set_repeat()
 pship = pygame.image.load("res/player_ship.png").convert()
 pshiprect = pship.get_rect()
 
-blackSurface = pygame.Surface([pship.get_height(), pship.get_width()])
+blackSurface = pygame.Surface([pship.get_width(), pship.get_height()])
 blackSurface.fill([0,0,0])
 
 pshiprect.move_ip(width/2, height - 25)
@@ -68,7 +68,9 @@ while 1:
         pshiprect = pshiprect.move(move_right)
         
     if key[pygame.K_LEFT] and pshiprect.left > 0:
+        screen.blit(blackSurface, pshiprect)
         pshiprect = pshiprect.move(move_left)
+        screen.blit(blackSurface, pshiprect)
 
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
@@ -80,7 +82,7 @@ while 1:
     to_update += bullet.move(enemy)
     to_update += enemy.move()
     pygame.display.update(to_update)
-
+    
     #find how long it took to render this frame so we can adjust speeds
     frametime.end()
     

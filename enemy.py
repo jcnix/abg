@@ -28,7 +28,7 @@ class Enemy:
     enemy = pygame.image.load("res/enemy.png").convert()
     enemyrect = enemy.get_rect()
     enemies = []
-    blackSurface = pygame.Surface([enemy.get_height(), enemy.get_width()])
+    blackSurface = pygame.Surface([enemy.get_width(), enemy.get_height()])
     blackSurface.fill([0,0,0])
     screen = None
     

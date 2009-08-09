@@ -27,7 +27,7 @@ class Bullet:
     bullet = pygame.image.load("res/bullet.png").convert()
     bulletrect = bullet.get_rect()
     bulletrects = []
-    blackSurface = pygame.Surface([bullet.get_height(), bullet.get_width()])
+    blackSurface = pygame.Surface([bullet.get_width(), bullet.get_height()])
     blackSurface.fill([0,0,0])
     screen = None
 

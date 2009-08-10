@@ -1,0 +1,13 @@
+************************
+*   Alpha Beta Gamma   *
+************************
+
+Alpha Beta Gamma [abg] is a scrolling space shooter like Galage, not Space Invaders.
+
+Controls:
+Left and Right arrow keys move left and right
+Spacebar fires a laser.
+
+To play abg, execute it with ./abg.py
+A setup.py will be coming eventually.
+

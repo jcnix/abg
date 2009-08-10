@@ -29,31 +29,27 @@ size = width, height = 800, 600
 
 screen = pygame.display.set_mode(size)
 
+from player import Player
 from bullet import Bullet
 from enemy import Enemy
+
+player = Player()
+to_update = player.set_screen(screen, size)
+#draw player to screen immediately
+pygame.display.update(to_update)
+
 bullet = Bullet()
 bullet.set_screen(screen)
+
 enemy = Enemy()
 enemy.set_screen(screen)
 
 pygame.display.set_caption("Alpha Beta Gamma")
 pygame.key.set_repeat()
 
-pship = pygame.image.load("res/player_ship.png").convert()
-pshiprect = pship.get_rect()
-
-blackSurface = pygame.Surface([pship.get_width(), pship.get_height()])
-blackSurface.fill([0,0,0])
-
-pshiprect.move_ip(width/2, height - 25)
-
 while 1:
     frametime.start()
     to_update = []
-    move_right = [325, 0]
-    move_left = [-325, 0]
-    move_right = frametime.modify_speed(move_right)
-    move_left = frametime.modify_speed(move_left)
     
     pygame.event.pump()
     key = pygame.key.get_pressed()
@@ -61,23 +57,16 @@ while 1:
     if key[pygame.K_ESCAPE]:
         sys.exit()
 
-    to_update.append(pshiprect)
-    screen.blit(blackSurface, pshiprect)
-    if key[pygame.K_RIGHT] and pshiprect.right < width:
-        pshiprect = pshiprect.move(move_right)
-        
-    if key[pygame.K_LEFT] and pshiprect.left > 0:
-        screen.blit(blackSurface, pshiprect)
-        pshiprect = pshiprect.move(move_left)
-        screen.blit(blackSurface, pshiprect)
+    if key[pygame.K_RIGHT]:
+        to_update += player.move_right()
+    if key[pygame.K_LEFT]:
+        to_update += player.move_left()
 
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
-                bullet.fire(pshiprect.midtop)
+                player.fire(bullet)
     
-    screen.blit(pship, pshiprect)
-    to_update.append(pshiprect)
     to_update += bullet.move(enemy)
     to_update += enemy.move()
     pygame.display.update(to_update)

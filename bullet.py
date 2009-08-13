@@ -36,6 +36,10 @@ class Bullet:
 
     def player_fire(self, pshiprect):       
         self.bulletrect = self.bullet.get_rect()
+        
+        #move the firing position of the bullet a little higher
+        #so it doesn't erase part of the ship
+        pshiprect = (pshiprect[0], pshiprect[1] - 10)
         self.bulletrect.move_ip(pshiprect)
         self.player_bullets.append(self.bulletrect)
                 

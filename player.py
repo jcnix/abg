@@ -73,4 +73,4 @@ class Player:
         return to_update
         
     def fire(self, bullet):
-        bullet.fire(self.pshiprect.midtop)
+        bullet.player_fire(self.pshiprect.midtop)

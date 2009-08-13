@@ -26,7 +26,7 @@ from enemy import Enemy
 class Bullet:
     bullet = pygame.image.load("res/bullet.png").convert()
     bulletrect = bullet.get_rect()
-    bulletrects = []
+    player_bullets = []
     blackSurface = pygame.Surface([bullet.get_width(), bullet.get_height()])
     blackSurface.fill([0,0,0])
     screen = None
@@ -34,31 +34,31 @@ class Bullet:
     def set_screen(self, screen):
         self.screen = screen
 
-    def fire(self, pshiprect):       
+    def player_fire(self, pshiprect):       
         self.bulletrect = self.bullet.get_rect()
         self.bulletrect.move_ip(pshiprect)
-        self.bulletrects.append(self.bulletrect)
+        self.player_bullets.append(self.bulletrect)
                 
     def move(self, enemy):
         to_update = []
-        if len(self.bulletrects) > 0:
+        if len(self.player_bullets) > 0:
             bullet_speed = [0, -600]
             bullet_speed = frametime.modify_speed(bullet_speed)
             enemies = enemy.getEnemies()
             to_delete = []
-            to_update += self.bulletrects
+            to_update += self.player_bullets
             
-            for i in range(len(self.bulletrects)):
-                self.screen.blit(self.blackSurface, self.bulletrects[i])
-                self.bulletrects[i] = self.bulletrects[i].move(bullet_speed)
-                self.screen.blit(self.bullet, self.bulletrects[i])
+            for i in range(len(self.player_bullets)):
+                self.screen.blit(self.blackSurface, self.player_bullets[i])
+                self.player_bullets[i] = self.player_bullets[i].move(bullet_speed)
+                self.screen.blit(self.bullet, self.player_bullets[i])
                 
                 #If bullet goes off the top of the screen
-                if self.bulletrects[i].top < 0:
+                if self.player_bullets[i].top < 0:
                     to_delete.append(i)
                 
                 #If bullet hits an enemy
-                collision = self.bulletrects[i].collidelist(enemies)
+                collision = self.player_bullets[i].collidelist(enemies)
                 if collision != -1:
                     to_delete.append(i)
                     to_update.append(enemy.remove(collision))
@@ -66,13 +66,13 @@ class Bullet:
             for x in to_delete:
                 self.remove(x)
             
-        to_update += self.bulletrects
+        to_update += self.player_bullets
                 
         return to_update
     
     def remove(self, index):
         try:
-            self.screen.blit(self.blackSurface, self.bulletrects[index])
-            del self.bulletrects[index]
+            self.screen.blit(self.blackSurface, self.player_bullets[index])
+            del self.player_bullets[index]
         except IndexError:
             print("IndexError for bullet %d" % index)

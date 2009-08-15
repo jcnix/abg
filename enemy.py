@@ -21,8 +21,7 @@
 # along with ABG.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import sys, pygame, frametime, properties
-import random
+import sys, pygame, frametime, properties, random
 
 class Enemy:
     enemy = pygame.image.load("res/enemy.png").convert()

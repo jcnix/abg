@@ -21,7 +21,7 @@
 # along with ABG.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import sys, pygame, frametime
+import sys, pygame, frametime, properties
 import random
 
 class Enemy:
@@ -37,7 +37,7 @@ class Enemy:
     
     def create(self):
         #range that the current player ship can shoot
-        where_spawn = random.randint(1, 800-self.enemy.get_width())
+        where_spawn = random.randint(1, properties.height-self.enemy.get_width())
         
         self.enemyrect = self.enemy.get_rect()
         self.enemies.append(self.enemyrect)

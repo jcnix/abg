@@ -20,13 +20,16 @@
 # You should have received a copy of the GNU General Public License
 # along with ABG.  If not, see <http://www.gnu.org/licenses/>.
 
-import sys, pygame, frametime
+import sys, pygame, frametime, properties
 from enemy import Enemy
 
 class Bullet:
     bullet = pygame.image.load("res/bullet.png").convert()
-    bulletrect = bullet.get_rect()
+    player_bulletrect = bullet.get_rect()
+    enemy_bulletrect = bullet.get_rect()
     player_bullets = []
+    enemy_bullets = []
+    
     blackSurface = pygame.Surface([bullet.get_width(), bullet.get_height()])
     blackSurface.fill([0,0,0])
     screen = None
@@ -35,26 +38,34 @@ class Bullet:
         self.screen = screen
 
     def player_fire(self, pshiprect):       
-        self.bulletrect = self.bullet.get_rect()
+        self.player_bulletrect = self.bullet.get_rect()
         
         #move the firing position of the bullet a little higher
         #so it doesn't erase part of the ship
         pshiprect = (pshiprect[0], pshiprect[1] - 10)
-        self.bulletrect.move_ip(pshiprect)
-        self.player_bullets.append(self.bulletrect)
+        self.player_bulletrect.move_ip(pshiprect)
+        self.player_bullets.append(self.player_bulletrect)
+        
+    def enemy_fire(self, enemyrect):
+        self.enemy_bulletrect = self.bullet.get_rect()
+        self.enemy_bulletrect.move_ip(enemyrect)
+        self.player_bullets.append(self.enemy_bulletrect)        
                 
     def move(self, enemy):
         to_update = []
         if len(self.player_bullets) > 0:
-            bullet_speed = [0, -600]
-            bullet_speed = frametime.modify_speed(bullet_speed)
+            player_bullet_speed = [0, -600]
+            player_bullet_speed = frametime.modify_speed(player_bullet_speed)
+            enemy_bullet_speed = [0, 600]
+            enemy_bullet_speed = frametime.modify_speed(enemy_bullet_speed)
+            
             enemies = enemy.getEnemies()
             to_delete = []
             to_update += self.player_bullets
             
             for i in range(len(self.player_bullets)):
                 self.screen.blit(self.blackSurface, self.player_bullets[i])
-                self.player_bullets[i] = self.player_bullets[i].move(bullet_speed)
+                self.player_bullets[i] = self.player_bullets[i].move(player_bullet_speed)
                 self.screen.blit(self.bullet, self.player_bullets[i])
                 
                 #If bullet goes off the top of the screen
@@ -65,7 +76,22 @@ class Bullet:
                 collision = self.player_bullets[i].collidelist(enemies)
                 if collision != -1:
                     to_delete.append(i)
-                    to_update.append(enemy.remove(collision))
+                    to_update.append(enemy.remove(collision))                
+            
+            for i in range(len(self.enemy_bullets)):
+                self.screen.blit(self.blackSurface, self.enemy_bullets[i])
+                self.player_bullets[i] = self.enemy_bullets[i].move(enemy_bullet_speed)
+                self.screen.blit(self.bullet, self.enemy_bullets[i])
+                
+                #If bullet goes off the top of the screen
+                if self.enemy_bullets[i].top > properties.height:
+                    to_delete.append(i)
+                
+                #If bullet hits an enemy
+                #collision = self.player_bullets[i].collidelist(enemies)
+                #if collision != -1:
+                #    to_delete.append(i)
+                #    to_update.append(enemy.remove(collision))   
             
             for x in to_delete:
                 self.remove(x)

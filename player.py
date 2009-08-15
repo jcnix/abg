@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU General Public License
 # along with ABG.  If not, see <http://www.gnu.org/licenses/>.
 
-import sys, pygame, frametime
+import sys, pygame, frametime, properties
 
 class Player:
     pship = pygame.image.load("res/player_ship.png").convert()
@@ -33,13 +33,13 @@ class Player:
     width = 0
     height = 0
 
-    def set_screen(self, screen, size):
+    def set_screen(self, screen):
         self.screen = screen
-        self.pshiprect.move_ip(size[0]/2, size[1] - 25)
+        self.pshiprect.move_ip(properties.size[0]/2, properties.size[1] - 25)
         self.screen.blit(self.pship, self.pshiprect)
         
-        self.width = size[0]
-        self.height = size[1]
+        self.width = properties.size[0]
+        self.height = properties.size[1]
         return [self.pshiprect]
     
     def move_left(self):

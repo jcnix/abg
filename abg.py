@@ -21,20 +21,18 @@
 # You should have received a copy of the GNU General Public License
 # along with ABG.  If not, see <http://www.gnu.org/licenses/>.
 
-import sys, pygame, frametime
+import sys, pygame, frametime, properties
 
 pygame.init()
 
-size = width, height = 800, 600
-
-screen = pygame.display.set_mode(size)
+screen = pygame.display.set_mode(properties.size)
 
 from player import Player
 from bullet import Bullet
 from enemy import Enemy
 
 player = Player()
-to_update = player.set_screen(screen, size)
+to_update = player.set_screen(screen)
 #draw player to screen immediately
 pygame.display.update(to_update)
 

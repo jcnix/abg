@@ -55,9 +55,9 @@ class Bullet:
                 
     def move(self, enemy):
         to_update = []
-        to_delete = []
         
         if len(self.player_bullets) > 0:
+            to_delete = []
             player_bullet_speed = [0, -600]
             player_bullet_speed = frametime.modify_speed(player_bullet_speed)
             
@@ -78,11 +78,14 @@ class Bullet:
                 #If bullet hits an enemy
                 collision = self.player_bullets[i].collidelist(enemies)
                 if collision != -1:
-                    print "collision"
                     to_delete.append(i)
-                    to_update.append(enemy.remove(collision))                
+                    to_update.append(enemy.remove(collision))   
+                    
+            for x in to_delete:
+                self.player_bullet_remove(x)
             
         if len(self.enemy_bullets) > 0:
+            to_delete = []
             enemy_bullet_speed = [0, 600]
             enemy_bullet_speed = frametime.modify_speed(enemy_bullet_speed)
             
@@ -92,26 +95,27 @@ class Bullet:
                 self.screen.blit(self.bullet, self.enemy_bullets[i])
                 
                 #If bullet goes off the top of the screen
-                if self.enemy_bullets[i].top > properties.height:
-                    to_delete.append(i)
-                
-                #If bullet hits an enemy
-                #collision = self.player_bullets[i].collidelist(enemies)
-                #if collision != -1:
-                #    to_delete.append(i)
-                #    to_update.append(enemy.remove(collision))   
-            
-        for x in to_delete:
-            self.remove(x)
+                if self.enemy_bullets[i].bottom > properties.height:
+                    to_delete.append(i) 
+                    
+            for x in to_delete:
+                self.enemy_bullet_remove(x)
             
         to_update += self.player_bullets
         to_update += self.enemy_bullets
                 
         return to_update
     
-    def remove(self, index):
+    def player_bullet_remove(self, index):
         try:
             self.screen.blit(self.blackSurface, self.player_bullets[index])
             del self.player_bullets[index]
+        except IndexError:
+            print("IndexError for bullet %d" % index)
+
+    def enemy_bullet_remove(self, index):
+        try:
+            self.screen.blit(self.blackSurface, self.enemy_bullets[index])
+            del self.enemy_bullets[index]
         except IndexError:
             print("IndexError for bullet %d" % index)

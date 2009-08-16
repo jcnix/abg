@@ -29,7 +29,7 @@ screen = pygame.display.set_mode(properties.size)
 
 from player import Player
 from bullet import Bullet
-from enemy import Enemy
+from enemies import Enemies
 
 player = Player()
 to_update = player.set_screen(screen)
@@ -39,8 +39,8 @@ pygame.display.update(to_update)
 bullet = Bullet()
 bullet.set_screen(screen)
 
-enemy = Enemy()
-enemy.set_screen(screen)
+enemies = Enemies()
+enemies.set_screen(screen)
 
 pygame.display.set_caption("Alpha Beta Gamma")
 pygame.key.set_repeat()
@@ -65,8 +65,8 @@ while 1:
             if event.key == pygame.K_SPACE:
                 player.fire(bullet)
     
-    to_update += bullet.move(enemy)
-    to_update += enemy.move(bullet)
+    to_update += bullet.move(enemies)
+    to_update += enemies.move(bullet)
     pygame.display.update(to_update)
     
     #find how long it took to render this frame so we can adjust speeds

@@ -1,88 +1,23 @@
 # -*- coding: utf-8 -*-
 
-# File:   enemy.py
-# Author: Casey Jones
-#
-# Created on July 20, 2009, 4:48 PM
-#
-# This file is part of Alpha Beta Gamma (abg).
-#
-# ABG is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# ABG is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with ABG.  If not, see <http://www.gnu.org/licenses/>.
-
-
-import sys, pygame, frametime, properties, random
+import frametime, pygame
 
 class Enemy:
     enemy = pygame.image.load("res/enemy.png").convert()
     enemyrect = enemy.get_rect()
-    enemies = []
-    blackSurface = pygame.Surface([enemy.get_width(), enemy.get_height()])
-    blackSurface.fill([0,0,0])
-    screen = None
+    cooldown_time = 0
+    to_cooldown = 1
     
-    def set_screen(self, screen):
-        self.screen = screen
-    
-    def create(self):
-        #range that the current player ship can shoot
-        where_spawn = random.randint(1, properties.height-self.enemy.get_width())
-        
+    def __init__(self, where_spawn):
         self.enemyrect = self.enemy.get_rect()
-        self.enemies.append(self.enemyrect)
         self.enemyrect.move_ip(where_spawn, 0)
-
-    def move(self, bullet):
-        self.fire(bullet)
-        to_update = []
-        if frametime.can_create_enemy():
-            self.create()
+    
+    def can_fire(self):
+        global cooldown_time
+        global time_to_cooldown
         
-        move_speed = [0, 300]
-        move_speed = frametime.modify_speed(move_speed)
-        to_delete = []
-        to_update += self.enemies
-        
-        if len(self.enemies) > 0:
-            for i in range(len(self.enemies)):
-                self.screen.blit(self.blackSurface, self.enemies[i])
-                self.enemies[i] = self.enemies[i].move(move_speed)
-                self.screen.blit(self.enemy, self.enemies[i])
-                
-                #If enemy goes off the bottom of the screen
-                if self.enemies[i].top > 800:
-                    to_delete.append(i)
-                    
-            for x in to_delete:
-                self.remove(x)
-            
-        to_update += self.enemies
-        return to_update
-        
-    def getEnemies(self):
-        return self.enemies
-        
-    def fire(self, bullet):
-        if len(self.enemies) > 0:
-            num = random.randint(0, len(self.enemies) - 1)
-            bullet.enemy_fire(self.enemies[num].midbottom)
-        
-    def remove(self, index):
-        try:
-            to_update = self.enemies[index]
-            self.screen.blit(self.blackSurface, self.enemies[index])
-            del self.enemies[index]
-            return to_update
-        except IndexError:
-            print("IndexError for enemy %d" % index)
-            
+        cooldown_time = frametime.can_enemy_fire(cooldown_time)
+        if cooldown_time > to_cooldown:
+            return True
+        else:
+            return False

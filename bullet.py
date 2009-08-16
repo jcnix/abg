@@ -76,7 +76,7 @@ class Bullet:
                     to_delete.append(i)
                 
                 #If bullet hits an enemy
-                collision = self.player_bullets[i].collidelist(enemies)
+                collision = self.player_bullets[i].collidelist([x.enemyrect for x in enemies])
                 if collision != -1:
                     to_delete.append(i)
                     to_update.append(enemy.remove(collision))   
@@ -118,4 +118,5 @@ class Bullet:
             self.screen.blit(self.blackSurface, self.enemy_bullets[index])
             del self.enemy_bullets[index]
         except IndexError:
-            print("IndexError for bullet %d" % index)
+            #print("IndexError for bullet %d" % index)
+            pass

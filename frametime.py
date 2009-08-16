@@ -72,3 +72,7 @@ def can_create_enemy():
         return True
     else:
         return False
+        
+def can_enemy_fire(cooldown_time):
+    cooldown_time += diff_time
+    pass

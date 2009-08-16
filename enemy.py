@@ -11,13 +11,19 @@ class Enemy:
     def __init__(self, where_spawn):
         self.enemyrect = self.enemy.get_rect()
         self.enemyrect.move_ip(where_spawn, 0)
+        self.cooldown_time = 0
+        self.to_cooldown = 1
     
     def can_fire(self):
-        global cooldown_time
-        global time_to_cooldown
+        diff_time = frametime.get_diff_time()
+        self.cooldown_time += diff_time
         
-        cooldown_time = frametime.can_enemy_fire(cooldown_time)
-        if cooldown_time > to_cooldown:
+        if self.cooldown_time > self.to_cooldown:
+            self.cooldown_time = 0
             return True
         else:
             return False
+            
+    def fire(self, bullet):
+        if self.can_fire():
+            bullet.enemy_fire(self.enemyrect.midbottom)

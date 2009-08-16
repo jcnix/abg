@@ -42,7 +42,6 @@ class Enemies:
         self.enemies.append(lenemy)
 
     def move(self, bullet):
-        self.fire(bullet)
         to_update = []
         if frametime.can_create_enemy():
             self.create()
@@ -54,6 +53,7 @@ class Enemies:
         
         if len(self.enemies) > 0:
             for i in range(len(self.enemies)):
+                self.enemies[i].fire(bullet)
                 self.screen.blit(self.blackSurface, self.enemies[i].enemyrect)
                 self.enemies[i].enemyrect = self.enemies[i].enemyrect.move(move_speed)
                 self.screen.blit(Enemy.enemy, self.enemies[i].enemyrect)
@@ -70,11 +70,6 @@ class Enemies:
         
     def getEnemies(self):
         return self.enemies
-        
-    def fire(self, bullet):
-        if len(self.enemies) > 0:
-            num = random.randint(0, len(self.enemies) - 1)
-            bullet.enemy_fire(self.enemies[num].enemyrect.midbottom)
         
     def remove(self, index):
         try:

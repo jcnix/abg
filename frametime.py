@@ -50,9 +50,9 @@ def end():
     
     end_time = time.time()
     diff_time = end_time - start_time
-    if diff_time < 0.004:
-        time.sleep(0.004 - diff_time)
-        diff_time = 0.004
+    if diff_time < 0.010:
+        time.sleep(0.010 - diff_time)
+        diff_time = 0.010
 
     return diff_time
     

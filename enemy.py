@@ -42,7 +42,8 @@ class Enemy:
         self.enemies.append(self.enemyrect)
         self.enemyrect.move_ip(where_spawn, 0)
 
-    def move(self):
+    def move(self, bullet):
+        self.fire(bullet)
         to_update = []
         if frametime.can_create_enemy():
             self.create()
@@ -70,6 +71,11 @@ class Enemy:
         
     def getEnemies(self):
         return self.enemies
+        
+    def fire(self, bullet):
+        if len(self.enemies) > 0:
+            num = random.randint(0, len(self.enemies) - 1)
+            bullet.enemy_fire(self.enemies[num].midbottom)
         
     def remove(self, index):
         try:

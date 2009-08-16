@@ -66,7 +66,7 @@ while 1:
                 player.fire(bullet)
     
     to_update += bullet.move(enemy)
-    to_update += enemy.move()
+    to_update += enemy.move(bullet)
     pygame.display.update(to_update)
     
     #find how long it took to render this frame so we can adjust speeds

@@ -48,20 +48,23 @@ class Bullet:
         
     def enemy_fire(self, enemyrect):
         self.enemy_bulletrect = self.bullet.get_rect()
+        
+        enemyrect = (enemyrect[0], enemyrect[1] + 10)
         self.enemy_bulletrect.move_ip(enemyrect)
-        self.player_bullets.append(self.enemy_bulletrect)        
+        self.enemy_bullets.append(self.enemy_bulletrect)        
                 
     def move(self, enemy):
         to_update = []
+        to_delete = []
+        
         if len(self.player_bullets) > 0:
             player_bullet_speed = [0, -600]
             player_bullet_speed = frametime.modify_speed(player_bullet_speed)
-            enemy_bullet_speed = [0, 600]
-            enemy_bullet_speed = frametime.modify_speed(enemy_bullet_speed)
             
             enemies = enemy.getEnemies()
             to_delete = []
             to_update += self.player_bullets
+            to_update += self.enemy_bullets
             
             for i in range(len(self.player_bullets)):
                 self.screen.blit(self.blackSurface, self.player_bullets[i])
@@ -75,12 +78,17 @@ class Bullet:
                 #If bullet hits an enemy
                 collision = self.player_bullets[i].collidelist(enemies)
                 if collision != -1:
+                    print "collision"
                     to_delete.append(i)
                     to_update.append(enemy.remove(collision))                
             
+        if len(self.enemy_bullets) > 0:
+            enemy_bullet_speed = [0, 600]
+            enemy_bullet_speed = frametime.modify_speed(enemy_bullet_speed)
+            
             for i in range(len(self.enemy_bullets)):
                 self.screen.blit(self.blackSurface, self.enemy_bullets[i])
-                self.player_bullets[i] = self.enemy_bullets[i].move(enemy_bullet_speed)
+                self.enemy_bullets[i] = self.enemy_bullets[i].move(enemy_bullet_speed)
                 self.screen.blit(self.bullet, self.enemy_bullets[i])
                 
                 #If bullet goes off the top of the screen
@@ -93,10 +101,11 @@ class Bullet:
                 #    to_delete.append(i)
                 #    to_update.append(enemy.remove(collision))   
             
-            for x in to_delete:
-                self.remove(x)
+        for x in to_delete:
+            self.remove(x)
             
         to_update += self.player_bullets
+        to_update += self.enemy_bullets
                 
         return to_update
     

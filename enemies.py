@@ -36,7 +36,7 @@ class Enemies:
     
     def create(self):
         #range that the current player ship can shoot
-        where_spawn = random.randint(1, properties.height - Enemy.enemy.get_width())
+        where_spawn = random.randint(1, properties.width - Enemy.enemy.get_width())
         
         lenemy = Enemy(where_spawn)
         self.enemies.append(lenemy)

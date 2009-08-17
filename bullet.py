@@ -86,7 +86,7 @@ class Bullet:
         to_update += self.enemy_bullets
         if len(self.enemy_bullets) > 0:
             to_delete = []
-            enemy_bullet_speed = [0, 600]
+            enemy_bullet_speed = [0, 400]
             enemy_bullet_speed = frametime.modify_speed(enemy_bullet_speed)
             
             for i in range(len(self.enemy_bullets)):

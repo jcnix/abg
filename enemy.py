@@ -11,7 +11,6 @@ class Enemy:
         self.enemyrect = self.enemy.get_rect()
         self.enemyrect.move_ip(where_spawn, 0)
         self.cooldown_time = 0
-        #self.to_cooldown = random.random() + 1
     
     def can_fire(self):
         diff_time = frametime.get_diff_time()

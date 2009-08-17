@@ -59,11 +59,8 @@ while 1:
         to_update += player.move_right()
     if key[pygame.K_LEFT]:
         to_update += player.move_left()
-
-    for event in pygame.event.get():
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
-                player.fire(bullet)
+    if key[pygame.K_SPACE]:
+        player.fire(bullet)
     
     to_update += bullet.move(enemies)
     to_update += enemies.move(bullet)

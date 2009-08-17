@@ -30,8 +30,8 @@ class Player:
     blackSurface.fill([0,0,0])
     
     screen = None
-    width = 0
-    height = 0
+    time_to_cooldown = 0.25
+    cooldown_time = 0
 
     def set_screen(self, screen):
         self.screen = screen
@@ -73,4 +73,9 @@ class Player:
         return to_update
         
     def fire(self, bullet):
-        bullet.player_fire(self.pshiprect.midtop)
+        diff_time = frametime.get_diff_time()
+        self.cooldown_time += diff_time
+        
+        if self.cooldown_time > self.time_to_cooldown:
+            self.cooldown_time = 0
+            bullet.player_fire(self.pshiprect.midtop)

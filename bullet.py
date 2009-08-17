@@ -111,11 +111,11 @@ class Bullet:
             self.screen.blit(self.blackSurface, self.player_bullets[index])
             del self.player_bullets[index]
         except IndexError:
-            print("IndexError for bullet %d" % index)
+            print("IndexError for bullet {0} of {1}".format(index, len(self.enemy_bullets)))
 
     def enemy_bullet_remove(self, index):
         try:
             self.screen.blit(self.blackSurface, self.enemy_bullets[index])
             del self.enemy_bullets[index]
         except IndexError:
-            print("IndexError for bullet %d" % index)
+            print("IndexError for bullet {0} of {1}".format(index, len(self.enemy_bullets)))

@@ -79,5 +79,5 @@ class Enemies:
             del self.enemies[index]
             return to_update
         except IndexError:
-            print("IndexError for enemy %d" % index)
+            print("IndexError for enemy {0} of {1}".format(index, len(self.enemy_bullets)))
             

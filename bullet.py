@@ -64,7 +64,6 @@ class Bullet:
             enemies = enemy.getEnemies()
             to_delete = []
             to_update += self.player_bullets
-            to_update += self.enemy_bullets
             
             for i in range(len(self.player_bullets)):
                 self.screen.blit(self.blackSurface, self.player_bullets[i])
@@ -84,6 +83,7 @@ class Bullet:
             for x in to_delete:
                 self.player_bullet_remove(x)
             
+        to_update += self.enemy_bullets
         if len(self.enemy_bullets) > 0:
             to_delete = []
             enemy_bullet_speed = [0, 600]
@@ -119,4 +119,3 @@ class Bullet:
             del self.enemy_bullets[index]
         except IndexError:
             print("IndexError for bullet %d" % index)
-            pass

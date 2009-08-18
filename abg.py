@@ -21,7 +21,7 @@
 # You should have received a copy of the GNU General Public License
 # along with ABG.  If not, see <http://www.gnu.org/licenses/>.
 
-import sys, pygame, frametime, properties
+import sys, pygame, frametime, properties, time
 
 pygame.init()
 
@@ -46,7 +46,6 @@ pygame.display.set_caption("Alpha Beta Gamma")
 pygame.key.set_repeat()
 
 while 1:
-    frametime.start()
     to_update = []
     
     pygame.event.pump()
@@ -62,6 +61,18 @@ while 1:
     if key[pygame.K_SPACE]:
         player.fire(bullet)
     
+    for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_RETURN:
+                isPaused = True
+                while isPaused:
+                    time.sleep(1)
+                    for event in pygame.event.get():
+                        if event.type == pygame.KEYDOWN:
+                            if event.key == pygame.K_RETURN:
+                                isPaused = False
+                       
+    frametime.start()
     to_update += bullet.move(enemies)
     to_update += enemies.move(bullet)
     pygame.display.update(to_update)

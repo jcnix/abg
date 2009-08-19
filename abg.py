@@ -27,6 +27,12 @@ pygame.init()
 
 screen = pygame.display.set_mode(properties.size)
 
+pygame.display.set_caption("Alpha Beta Gamma")
+pygame.key.set_repeat()
+
+from menu import Menu
+menu = Menu(screen)
+
 from player import Player
 from bullet import Bullet
 from enemies import Enemies
@@ -41,9 +47,6 @@ bullet.set_screen(screen)
 
 enemies = Enemies()
 enemies.set_screen(screen)
-
-pygame.display.set_caption("Alpha Beta Gamma")
-pygame.key.set_repeat()
 
 while 1:
     to_update = []
@@ -61,16 +64,11 @@ while 1:
     if key[pygame.K_SPACE]:
         player.fire(bullet)
     
+    #pausing
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RETURN:
-                isPaused = True
-                while isPaused:
-                    time.sleep(1)
-                    for event in pygame.event.get():
-                        if event.type == pygame.KEYDOWN:
-                            if event.key == pygame.K_RETURN:
-                                isPaused = False
+                menu.showMenu()
                        
     frametime.start()
     to_update += bullet.move(enemies)

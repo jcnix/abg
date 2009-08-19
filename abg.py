@@ -32,6 +32,8 @@ pygame.key.set_repeat()
 
 from menu import Menu
 menu = Menu(screen)
+#show menu before starting game.
+menu.showMenu()
 
 from player import Player
 from bullet import Bullet

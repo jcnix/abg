@@ -31,7 +31,7 @@ class Player:
     
     screen = None
     time_to_cooldown = 0.25
-    cooldown_time = 0
+    cooldown_time = 0.25
 
     def set_screen(self, screen):
         self.screen = screen

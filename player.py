@@ -72,10 +72,16 @@ class Player:
         to_update += [self.pshiprect]
         return to_update
         
-    def fire(self, bullet):
-        diff_time = frametime.get_diff_time()
-        self.cooldown_time += diff_time
-        
-        if self.cooldown_time > self.time_to_cooldown:
-            self.cooldown_time = 0
+    # fire_now is used for when the player presses spacebar once
+    # will fire right away instead of waiting on cooldown
+    def fire(self, bullet, fire_now):
+        if fire_now:
             bullet.player_fire(self.pshiprect.midtop)
+    
+        elif not fire_now:
+            diff_time = frametime.get_diff_time()
+            self.cooldown_time += diff_time
+            
+            if self.cooldown_time > self.time_to_cooldown:
+                self.cooldown_time = 0
+                bullet.player_fire(self.pshiprect.midtop)

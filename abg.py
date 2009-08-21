@@ -56,6 +56,14 @@ while 1:
     pygame.event.pump()
     key = pygame.key.get_pressed()
     
+    #key events that only need to be pressed once
+    for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_RETURN:
+                menu.showMenu()
+            if event.key == pygame.K_SPACE:
+                player.fire(bullet, True)
+    
     if key[pygame.K_ESCAPE]:
         sys.exit()
 
@@ -64,13 +72,7 @@ while 1:
     if key[pygame.K_LEFT]:
         to_update += player.move_left()
     if key[pygame.K_SPACE]:
-        player.fire(bullet)
-    
-    #pausing
-    for event in pygame.event.get():
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RETURN:
-                menu.showMenu()
+            player.fire(bullet, False)
                        
     frametime.start()
     to_update += bullet.move(enemies)

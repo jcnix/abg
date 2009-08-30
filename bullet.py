@@ -53,7 +53,7 @@ class Bullet:
         self.enemy_bulletrect.move_ip(enemyrect)
         self.enemy_bullets.append(self.enemy_bulletrect)        
                 
-    def move(self, enemy):
+    def move(self, enemy, player):
         to_update = []
         
         if len(self.player_bullets) > 0:
@@ -78,7 +78,7 @@ class Bullet:
                 collision = self.player_bullets[i].collidelist([x.enemyrect for x in enemies])
                 if collision != -1:
                     to_delete.append(i)
-                    to_update.append(enemy.remove(collision))   
+                    to_update.append(enemy.remove(collision))
                     
             for x in to_delete:
                 self.player_bullet_remove(x)
@@ -89,6 +89,8 @@ class Bullet:
             enemy_bullet_speed = [0, 400]
             enemy_bullet_speed = frametime.modify_speed(enemy_bullet_speed)
             
+            prect = player.get_player_rect();
+            
             for i in range(len(self.enemy_bullets)):
                 self.screen.blit(self.blackSurface, self.enemy_bullets[i])
                 self.enemy_bullets[i] = self.enemy_bullets[i].move(enemy_bullet_speed)
@@ -97,7 +99,12 @@ class Bullet:
                 #If bullet goes off the top of the screen
                 if self.enemy_bullets[i].bottom > properties.height:
                     to_delete.append(i) 
-                    
+                
+                collision = self.enemy_bullets[i].colliderect(prect)
+                if collision:
+                    to_delete.append(i)
+                    print "HIT!"
+                
             for x in to_delete:
                 self.enemy_bullet_remove(x)
             

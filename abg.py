@@ -75,7 +75,7 @@ while 1:
             player.fire(bullet, False)
                        
     frametime.start()
-    to_update += bullet.move(enemies)
+    to_update += bullet.move(enemies, player)
     to_update += enemies.move(bullet)
     pygame.display.update(to_update)
     

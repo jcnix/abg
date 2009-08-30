@@ -85,3 +85,6 @@ class Player:
             if self.cooldown_time > self.time_to_cooldown:
                 self.cooldown_time = 0
                 bullet.player_fire(self.pshiprect.midtop)
+                
+    def get_player_rect(self):
+        return self.pshiprect

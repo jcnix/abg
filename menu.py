@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import pygame, properties
+import pygame, properties, time
 
 class Menu:
     screen = None
@@ -18,6 +18,8 @@ class Menu:
         pygame.display.update(self.bannerrect)
         while inMenu:
             for event in pygame.event.get():
+                print "menu"
+                time.sleep(.1)
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
                         self.screen.blit(self.blackSurface, self.bannerrect)     

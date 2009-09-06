@@ -103,7 +103,6 @@ class Bullet:
                 collision = self.enemy_bullets[i].colliderect(prect)
                 if collision:
                     to_delete.append(i)
-                    print "HIT!"
                 
             for x in to_delete:
                 self.enemy_bullet_remove(x)

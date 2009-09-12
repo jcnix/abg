@@ -103,6 +103,7 @@ class Bullet:
                 collision = self.enemy_bullets[i].colliderect(prect)
                 if collision:
                     to_delete.append(i)
+                    player.give_damage(10)
                 
             for x in to_delete:
                 self.enemy_bullet_remove(x)

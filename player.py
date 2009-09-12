@@ -32,6 +32,7 @@ class Player:
     screen = None
     time_to_cooldown = 0.25
     cooldown_time = 0.25
+    health = 100
 
     def set_screen(self, screen):
         self.screen = screen
@@ -86,5 +87,11 @@ class Player:
                 self.cooldown_time = 0
                 bullet.player_fire(self.pshiprect.midtop)
                 
+    def give_damage(self, damage):
+        self.health -= damage
+        print self.health
+        if self.health <= 0:
+            print "Game Over Bro!"
+    
     def get_player_rect(self):
         return self.pshiprect

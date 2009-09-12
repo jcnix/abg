@@ -17,8 +17,9 @@ class Menu:
         self.screen.blit(self.banner, self.bannerrect)     
         pygame.display.update(self.bannerrect)
         while inMenu:
+            time.sleep(.1)
+            pygame.event.pump()
             for event in pygame.event.get():
-                time.sleep(.1)
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
                         self.screen.blit(self.blackSurface, self.bannerrect)     

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import pygame, properties, time
+import sys, pygame, properties, time
 
 class Menu:
     screen = None
@@ -24,3 +24,5 @@ class Menu:
                         self.screen.blit(self.blackSurface, self.bannerrect)     
                         pygame.display.update(self.bannerrect)                 
                         inMenu = False
+                    if event.key == pygame.K_ESCAPE:
+                        sys.exit()

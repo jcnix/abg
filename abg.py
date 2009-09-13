@@ -30,55 +30,57 @@ screen = pygame.display.set_mode(properties.size)
 pygame.display.set_caption("Alpha Beta Gamma")
 pygame.key.set_repeat()
 
-from menu import Menu
-menu = Menu(screen)
-#show menu before starting game.
-menu.showMenu()
+def play():
+    from menu import Menu
+    menu = Menu(screen)
+    #show menu before starting game.
+    menu.showMenu()
 
-from player import Player
-from bullet import Bullet
-from enemies import Enemies
+    from player import Player
+    from bullet import Bullet
+    from enemies import Enemies
 
-player = Player()
-to_update = player.set_screen(screen)
-#draw player to screen immediately
-pygame.display.update(to_update)
-
-bullet = Bullet()
-bullet.set_screen(screen)
-
-enemies = Enemies()
-enemies.set_screen(screen)
-
-while 1:
-    to_update = []
-    
-    pygame.event.pump()
-    key = pygame.key.get_pressed()
-    
-    #key events that only need to be pressed once
-    for event in pygame.event.get():
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RETURN:
-                menu.showMenu()
-            if event.key == pygame.K_SPACE:
-                player.fire(bullet, True)
-    
-    if key[pygame.K_ESCAPE]:
-        sys.exit()
-
-    if key[pygame.K_RIGHT]:
-        to_update += player.move_right()
-    if key[pygame.K_LEFT]:
-        to_update += player.move_left()
-    if key[pygame.K_SPACE]:
-            player.fire(bullet, False)
-                       
-    frametime.start()
-    to_update += bullet.move(enemies, player)
-    to_update += enemies.move(bullet)
+    player = Player()
+    to_update = player.set_screen(screen)
+    #draw player to screen immediately
     pygame.display.update(to_update)
-    
-    #find how long it took to render this frame so we can adjust speeds
-    frametime.end()
-    
+
+    bullet = Bullet()
+    bullet.set_screen(screen)
+
+    enemies = Enemies()
+    enemies.set_screen(screen)
+
+    while player.is_alive():
+        to_update = []
+        
+        pygame.event.pump()
+        key = pygame.key.get_pressed()
+        
+        #key events that only need to be pressed once
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    menu.showMenu()
+                if event.key == pygame.K_SPACE:
+                    player.fire(bullet, True)
+        
+        if key[pygame.K_ESCAPE]:
+            sys.exit()
+
+        if key[pygame.K_RIGHT]:
+            to_update += player.move_right()
+        if key[pygame.K_LEFT]:
+            to_update += player.move_left()
+        if key[pygame.K_SPACE]:
+                player.fire(bullet, False)
+                        
+        frametime.start()
+        to_update += bullet.move(enemies, player)
+        to_update += enemies.move(bullet)
+        pygame.display.update(to_update)
+        
+        #find how long it took to render this frame so we can adjust speeds
+        frametime.end()
+        
+play()

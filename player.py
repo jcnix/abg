@@ -89,9 +89,10 @@ class Player:
                 
     def give_damage(self, damage):
         self.health -= damage
-        print self.health
-        if self.health <= 0:
-            print "Game Over Bro!"
+        print format("Health: %d" % self.health)
+    
+    def is_alive(self):
+        return self.health > 0
     
     def get_player_rect(self):
         return self.pshiprect

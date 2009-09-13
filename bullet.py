@@ -126,3 +126,12 @@ class Bullet:
             del self.enemy_bullets[index]
         except IndexError:
             print("IndexError for bullet {0} of {1}".format(index +1, len(self.enemy_bullets)))
+            
+    def game_over(self):
+        for i in range(len(self.enemy_bullets)):
+            self.screen.blit(self.blackSurface, self.enemy_bullets[i])
+        for i in range(len(self.player_bullets)):
+            self.screen.blit(self.blackSurface, self.player_bullets[i])
+            
+        del self.enemy_bullets[:]
+        del self.player_bullets[:]

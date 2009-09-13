@@ -41,7 +41,9 @@ def play():
     from enemies import Enemies
 
     player = Player()
-    to_update = player.set_screen(screen)
+    player.set_screen(screen)
+    to_update = player.create()
+    
     #draw player to screen immediately
     pygame.display.update(to_update)
 
@@ -83,4 +85,11 @@ def play():
         #find how long it took to render this frame so we can adjust speeds
         frametime.end()
         
-play()
+    #player died
+    player.game_over()
+    enemies.game_over()
+    bullet.game_over()
+    pygame.display.flip()
+        
+while 1:
+    play()

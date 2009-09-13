@@ -36,9 +36,11 @@ class Player:
 
     def set_screen(self, screen):
         self.screen = screen
+    
+    def create(self):
+        self.pshiprect = self.pship.get_rect()
         self.pshiprect.move_ip(properties.size[0]/2, properties.size[1] - 25)
         self.screen.blit(self.pship, self.pshiprect)
-        
         self.width = properties.size[0]
         self.height = properties.size[1]
         return [self.pshiprect]
@@ -89,10 +91,15 @@ class Player:
                 
     def give_damage(self, damage):
         self.health -= damage
-        print format("Health: %d" % self.health)
+        print("Health: {0}".format(self.health))
     
     def is_alive(self):
         return self.health > 0
     
     def get_player_rect(self):
         return self.pshiprect
+        
+    def game_over(self):
+        self.screen.blit(self.blackSurface, self.pshiprect)
+        del self.pshiprect
+        self.health = 100

@@ -79,5 +79,11 @@ class Enemies:
             del self.enemies[index]
             return to_update
         except IndexError:
-            print("IndexError for enemy {0} of {1}".format(index, len(self.enemy_bullets)))
+            print("IndexError for enemy {0} of {1}".format(index, len(self.enemies)))
+            
+    def game_over(self):
+        for i in range(len(self.enemies)):
+            self.screen.blit(self.blackSurface, self.enemies[i].enemyrect)
+            
+        del self.enemies[:]
             

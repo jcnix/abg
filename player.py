@@ -23,7 +23,7 @@
 import sys, pygame, frametime, properties
 
 class Player:
-    pship = pygame.image.load("res/player_ship.png").convert()
+    pship = pygame.image.load(properties.player_ship).convert()
     pshiprect = pship.get_rect()
     
     blackSurface = pygame.Surface([pship.get_width(), pship.get_height()])
@@ -38,8 +38,10 @@ class Player:
         self.screen = screen
     
     def create(self):
+        height = properties.player_ship_height;
+        
         self.pshiprect = self.pship.get_rect()
-        self.pshiprect.move_ip(properties.size[0]/2, properties.size[1] - 25)
+        self.pshiprect.move_ip(properties.size[0]/2, properties.size[1] - height)
         self.screen.blit(self.pship, self.pshiprect)
         self.width = properties.size[0]
         self.height = properties.size[1]

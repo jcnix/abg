@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-import frametime, pygame, random
+import frametime, pygame, random, properties
 
 class Enemy:
-    enemy = pygame.image.load("res/enemy.png").convert()
+    enemy = pygame.image.load(properties.enemy_ship).convert()
     enemyrect = enemy.get_rect()
     cooldown_time = 0
     

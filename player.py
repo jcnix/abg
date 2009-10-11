@@ -23,7 +23,7 @@
 import sys, pygame, frametime, properties
 
 class Player:
-    pship = pygame.image.load(properties.player_ship).convert()
+    pship = pygame.image.load(properties.player_ship).convert_alpha()
     pshiprect = pship.get_rect()
     
     blackSurface = pygame.Surface([pship.get_width(), pship.get_height()])

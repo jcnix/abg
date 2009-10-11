@@ -46,17 +46,13 @@ class Enemies:
         if frametime.can_create_enemy():
             self.create()
         
-        move_speed = [0, 150]
-        move_speed = frametime.modify_speed(move_speed)
-        
         to_delete = []
         to_update += [x.enemyrect for x in self.enemies]
         
         if len(self.enemies) > 0:
             for i in range(len(self.enemies)):
-                self.enemies[i].fire(bullet)
+                self.enemies[i].update(bullet)
                 self.screen.blit(self.blackSurface, self.enemies[i].enemyrect)
-                self.enemies[i].enemyrect = self.enemies[i].enemyrect.move(move_speed)
                 self.screen.blit(Enemy.enemy, self.enemies[i].enemyrect)
                 
                 #If enemy goes off the bottom of the screen
